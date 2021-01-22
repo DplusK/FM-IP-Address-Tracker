@@ -93,9 +93,11 @@ export default {
   methods: {
     createMap() {
       return new Promise((resolve, reject) => {
-        console.log(this.map);
-        this.map = L.map("map", { zoom: 14, animation: true });
-        console.log(this.map);
+        this.map = L.map("map", {
+          center: { lat: 34.68387, lng: -86.64764 },
+          zoom: 14,
+          animation: true,
+        });
         if (this.map) resolve();
       });
     },
