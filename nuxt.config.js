@@ -7,7 +7,14 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' }
     ],
+    script: [
+      { src: 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.js' }
+    ],
     link: [
+      {
+        rel: 'stylesheet',
+        href: 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.css'
+      },
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
@@ -27,8 +34,19 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/fontawesome',
+    '@nuxtjs/axios'
   ],
-
+  axios: {
+    // proxy: true
+  },
+  fontawesome: {
+    icons: {
+      solid: [
+        'faChevronRight'
+      ],
+    }
+  },
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
   ],
