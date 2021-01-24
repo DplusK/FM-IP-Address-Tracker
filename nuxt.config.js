@@ -2,33 +2,36 @@ export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     title: 'frontend-mentor-4',
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
-    ],
-    script: [
-      { src: 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.js' }
-    ],
-    link: [
-      {
-        rel: 'stylesheet',
-        href: 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.css'
+    meta: [{
+        charset: 'utf-8'
       },
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
-  },
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1'
+      },
+      {
+        hid: 'description',
+        name: 'description',
+        content: ''
+      }
+    ],
 
+    link: [{
+      rel: 'icon',
+      type: 'image/x-icon',
+      href: '/favicon.ico'
+    }]
+  },
   // Global CSS (https://go.nuxtjs.dev/config-css)
-  css: [
-  ],
+  css: [],
   generate: {
     dir: 'dist'
   },
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [
-  ],
-
+  plugins: [{
+    src: '~plugins/leaflet.js',
+    mode: 'client'
+  }],
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
 
@@ -37,10 +40,14 @@ export default {
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
     '@nuxtjs/fontawesome',
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy',
   ],
   axios: {
-    // proxy: true
+    proxy: true
+  },
+  proxy: {
+    '/api/': 'http://api.example.com',
   },
   fontawesome: {
     icons: {
@@ -50,10 +57,8 @@ export default {
     }
   },
   // Modules (https://go.nuxtjs.dev/config-modules)
-  modules: [
-  ],
+  modules: [],
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {
-  }
+  build: {}
 }

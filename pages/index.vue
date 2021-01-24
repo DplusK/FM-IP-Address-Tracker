@@ -71,7 +71,12 @@
         </div>
       </div>
     </div>
-    <div id="map" class="remaining w-full z-0"></div>
+    <client-only>
+      <l-map :zoom="zoom" :center="center" class="remaining w-full z-0">
+        <l-tile-layer :url="url" :attribution="attribution" />
+        <l-marker :lat-lng="marker" />
+      </l-map>
+    </client-only>
   </div>
 </template>
 
@@ -83,18 +88,22 @@ export default {
       mountains: [],
       data: "",
       map: "",
+      zoom: 13,
+
+      center: [this.data.lat, this.data.lng],
+      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      marker: [this.data.lat, this.data.lng],
     };
   },
-  async mounted() {
-    await this.createMap();
+  mounted() {
+    this.createMap();
     this.getGeoData();
-    // this.test();
   },
   methods: {
     createMap() {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         this.map = L.map("map", {
-          center: { lat: 34.68387, lng: -86.64764 },
+          center: [34.68387, -86.64764],
           zoom: 14,
           animation: true,
         });
@@ -102,8 +111,10 @@ export default {
       });
     },
     setMap() {
-      console.log(this.map);
-      this.map.setZoom(13);
+      this.map = L.map("map", {
+        zoom: 13,
+        animation: true,
+      });
       this.map.setView([this.data.location.lat, this.data.location.lng]);
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(
         this.map
