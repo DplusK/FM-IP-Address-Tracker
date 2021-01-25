@@ -78,6 +78,7 @@
     <div class="remaining w-full z-0">
       <l-map v-if="data" :zoom="zoom" :center="center" ref="map" class="z-0">
         <l-tile-layer :url="url" />
+
         <l-marker :lat-lng="marker" icon-url="/images/icon.png" />
       </l-map>
     </div>
