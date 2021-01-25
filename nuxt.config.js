@@ -1,7 +1,9 @@
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
-    lang: 'en',
+    htmlAttrs: {
+      lang: 'en'
+    },
     title: 'frontend-mentor-4',
     meta: [{
       charset: 'utf-8'
