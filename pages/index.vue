@@ -1,9 +1,9 @@
 <template>
   <div class="body">
     <div
-      class="bg-hero-pattern md:h-280 h-300 bg-no-repeat w-full bg-cover flex pt-6 md:pt-0 justify-start md:justify-center items-center flex-col"
+      class="bg-hero-pattern md:h-280 h-300 bg-no-repeat w-full bg-cover flex pt-6 md:pt-10 justify-start items-center flex-col"
     >
-      <div class="flex text-center w-full mb-5 font-medium justify-center">
+      <div class="flex text-center w-full mb-5 font-bold justify-center">
         <h1 class="text-2xl text-white">IP Address Tracker</h1>
       </div>
       <div class="flex justify-center w-full mx-auto md:px-2 px-5">
@@ -11,12 +11,15 @@
           class="max-w-3xl rounded-xl w-full h-60 bg-white flex items-center overflow-hidden"
         >
           <input
+            name="ip input"
+            title="ip input"
             type="text"
             v-model="ipAddress"
             class="bg-transparent text-black placeholder-gray-500 pl-5 w-full h-full"
             placeholder="Search for any IP address or domain"
           />
           <button
+            name="Search"
             @click="getGeoData"
             class="bg-black text-white font-medium w-16 ml-auto h-full fa fa-chevron-right"
           >
@@ -27,7 +30,7 @@
     </div>
     <div class="w-full absolute z-20 md:px-2 px-5">
       <div
-        class="bg-white rounded-2xl mx-auto max-w-6xl transform -translate-y-32 md:-translate-y-10 flex justify-between px-10 min-h-160 flex-col md:flex-row md:py-0 py-2"
+        class="bg-white rounded-2xl mx-auto max-w-6xl transform -translate-y-32 md:-translate-y-16 flex justify-between px-10 min-h-160 flex-col md:flex-row md:py-0 py-2"
       >
         <div
           class="flex flex-col h-full flex-1 md:py-10 py-2 md:text-left text-center"
@@ -39,7 +42,7 @@
             {{ data.ip }}
           </div>
         </div>
-        <div class="w-px my-auto py-5 mr-8 md:block hidden bg-gray-700"></div>
+        <div class="w-px my-auto py-8 mr-8 md:block hidden bg-gray-500"></div>
         <div
           class="flex flex-col h-full flex-1 md:py-10 py-2 md:text-left text-center"
         >
@@ -51,7 +54,7 @@
             {{ data.location.postalCode }}
           </div>
         </div>
-        <div class="w-px my-auto py-5 mr-8 md:block hidden bg-gray-700"></div>
+        <div class="w-px my-auto py-8 mr-8 md:block hidden bg-gray-500"></div>
         <div
           class="flex flex-col h-full flex-1 md:py-10 py-2 md:text-left text-center"
         >
@@ -62,7 +65,7 @@
             UTC {{ data.location.timezone }}
           </div>
         </div>
-        <div class="w-px my-auto py-5 mr-8 md:block hidden bg-gray-700"></div>
+        <div class="w-px my-auto py-8 mr-8 md:block hidden bg-gray-500"></div>
         <div
           class="flex flex-col h-full flex-1 md:py-10 py-2 md:text-left text-center"
         >
