@@ -1,7 +1,7 @@
 <template>
   <div class="body">
     <div
-      class="bg-hero-pattern md:h-280 h-300 bg-no-repeat w-full bg-cover flex justify-center items-center flex-col"
+      class="bg-hero-pattern md:h-280 h-300 bg-no-repeat w-full bg-cover flex pt-6 md:pt-0 justify-start md:justify-center items-center flex-col"
     >
       <div class="flex text-center w-full mb-5 font-medium justify-center">
         <h1 class="text-2xl text-white">IP Address Tracker</h1>
@@ -27,56 +27,60 @@
     </div>
     <div class="w-full absolute z-20 md:px-2 px-5">
       <div
-        class="bg-white rounded-2xl mx-auto max-w-6xl transform -translate-y-10 flex justify-between px-10 min-h-160 flex-col md:flex-row md:py-0 py-5"
+        class="bg-white rounded-2xl mx-auto max-w-6xl transform -translate-y-32 md:-translate-y-10 flex justify-between px-10 min-h-160 flex-col md:flex-row md:py-0 py-2"
       >
         <div
-          class="flex flex-col h-full flex-1 md:py-10 py-3 md:text-left text-center"
+          class="flex flex-col h-full flex-1 md:py-10 py-2 md:text-left text-center"
         >
-          <p class="text-base uppercase font-semibold text-gray-500">
+          <p class="text-sm md:text-base uppercase font-semibold text-gray-500">
             ip address
           </p>
-          <div class="font-bold text-2xl leading-snug">{{ data.ip }}</div>
+          <div class="font-bold text-xl md:text-2xl leading-snug">
+            {{ data.ip }}
+          </div>
         </div>
         <div class="w-px my-auto py-5 mr-8 md:block hidden bg-gray-700"></div>
         <div
-          class="flex flex-col h-full flex-1 md:py-10 py-3 md:text-left text-center"
+          class="flex flex-col h-full flex-1 md:py-10 py-2 md:text-left text-center"
         >
-          <p class="text-base uppercase font-semibold text-gray-500">
+          <p class="text-sm md:text-base uppercase font-semibold text-gray-500">
             location
           </p>
-          <div class="font-bold text-2xl leading-snug" v-if="data">
+          <div class="font-bold text-xl md:text-2xl leading-snug" v-if="data">
             {{ data.location.city }}, {{ data.location.region }}
             {{ data.location.postalCode }}
           </div>
         </div>
         <div class="w-px my-auto py-5 mr-8 md:block hidden bg-gray-700"></div>
         <div
-          class="flex flex-col h-full flex-1 md:py-10 py-3 md:text-left text-center"
+          class="flex flex-col h-full flex-1 md:py-10 py-2 md:text-left text-center"
         >
-          <p class="text-base uppercase font-semibold text-gray-500">
+          <p class="text-sm md:text-base uppercase font-semibold text-gray-500">
             timezone
           </p>
-          <div class="font-bold text-2xl leading-snug" v-if="data">
+          <div class="font-bold text-xl md:text-2xl leading-snug" v-if="data">
             UTC {{ data.location.timezone }}
           </div>
         </div>
         <div class="w-px my-auto py-5 mr-8 md:block hidden bg-gray-700"></div>
         <div
-          class="flex flex-col h-full flex-1 md:py-10 py-3 md:text-left text-center"
+          class="flex flex-col h-full flex-1 md:py-10 py-2 md:text-left text-center"
         >
-          <p class="text-base uppercase font-semibold text-gray-500">isp</p>
-          <div class="font-bold text-2xl leading-snug" v-if="data">
+          <p class="text-sm md:text-base uppercase font-semibold text-gray-500">
+            isp
+          </p>
+          <div class="font-bold text-xl md:text-2xl leading-snug" v-if="data">
             {{ data.isp }}
           </div>
         </div>
       </div>
     </div>
-    <client-only>
-      <l-map :zoom="zoom" :center="center" class="remaining w-full z-0">
-        <l-tile-layer :url="url" :attribution="attribution" />
+    <div class="remaining w-full z-0">
+      <l-map v-if="data" :zoom="zoom" :center="center" ref="map" class="z-0">
+        <l-tile-layer :url="url" />
         <l-marker :lat-lng="marker" />
       </l-map>
-    </client-only>
+    </div>
   </div>
 </template>
 
@@ -85,44 +89,33 @@ export default {
   data() {
     return {
       ipAddress: "198.120.56.255",
-      mountains: [],
       data: "",
-      map: "",
       zoom: 13,
-
-      center: [this.data.lat, this.data.lng],
       url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-      marker: [this.data.lat, this.data.lng],
     };
   },
   mounted() {
-    this.createMap();
     this.getGeoData();
   },
+  computed: {
+    center: {
+      set: function () {
+        this.center = [34.68387, -86.64764];
+      },
+      get: function () {
+        return [this.data.location.lat, this.data.location.lng];
+      },
+    },
+    marker: {
+      set: function () {
+        this.marker = [34.68387, -86.64764];
+      },
+      get: function () {
+        return [this.data.location.lat, this.data.location.lng];
+      },
+    },
+  },
   methods: {
-    createMap() {
-      return new Promise((resolve) => {
-        this.map = L.map("map", {
-          center: [34.68387, -86.64764],
-          zoom: 14,
-          animation: true,
-        });
-        if (this.map) resolve();
-      });
-    },
-    setMap() {
-      this.map = L.map("map", {
-        zoom: 13,
-        animation: true,
-      });
-      this.map.setView([this.data.location.lat, this.data.location.lng]);
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(
-        this.map
-      );
-      L.marker([this.data.location.lat, this.data.location.lng]).addTo(
-        this.map
-      );
-    },
     async getGeoData() {
       var api_key = "at_rMaOLTPCG6zAdk075i4C2E3kJrb94";
       var api_url = "https://geo.ipify.org/api/v1?";
@@ -130,7 +123,6 @@ export default {
         .$get(api_url + "apiKey=" + api_key + "&ipAddress=" + this.ipAddress)
         .then((res) => {
           this.data = res;
-          this.setMap();
         })
         .catch((err) => {
           console.log(err);
@@ -140,7 +132,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 /* Sample `apply` at-rules with Tailwind CSS
 .container {
 @apply min-h-screen flex justify-center items-center text-center mx-auto;
@@ -152,7 +144,11 @@ export default {
 .body {
   @apply h-screen w-full bg-gray-700;
 }
+
 .remaining {
-  height: calc(100% - 280px);
+  height: calc(100% - 300px);
+  @media (min-width: 768px) {
+    height: calc(100% - 280px);
+  }
 }
 </style>
