@@ -82,11 +82,7 @@
       <l-map v-if="data" :zoom="zoom" :center="center" ref="map" class="z-0">
         <l-tile-layer :url="url" />
         <l-marker :lat-lng="marker">
-          <l-icon
-            iconUrl="/images/icon.png"
-            iconSize="[32,37]"
-            iconAnchor="[16,37]"
-          />
+          <l-icon iconUrl="/images/icon.png" />
         </l-marker>
       </l-map>
     </div>

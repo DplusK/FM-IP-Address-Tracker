@@ -34,7 +34,9 @@ export default {
   }],
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
-
+  serverMiddleware: [
+    "~/api/seo.js"
+  ],
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
     // https://go.nuxtjs.dev/tailwindcss
@@ -47,7 +49,6 @@ export default {
     proxy: true
   },
   proxy: {
-    '/api/': 'http://api.example.com',
   },
   fontawesome: {
     icons: {
