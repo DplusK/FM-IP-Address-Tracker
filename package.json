@@ -14,6 +14,7 @@
     "@nuxtjs/axios": "^5.12.5",
     "@nuxtjs/fontawesome": "^1.1.2",
     "@nuxtjs/proxy": "^2.1.0",
+    "@types/leaflet": "^1.5.7",
     "core-js": "^3.6.5",
     "leaflet": "^1.7.1",
     "nuxt": "^2.14.6",
