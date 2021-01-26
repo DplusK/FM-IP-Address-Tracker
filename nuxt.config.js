@@ -27,6 +27,12 @@ export default {
   },
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [],
+  generate: {
+    dir: 'dist'
+  },
+  serverMiddleware: [
+    "~/api/seo.js"
+  ],
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [{
     src: '~plugins/leaflet.js',
@@ -34,21 +40,16 @@ export default {
   }],
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
-  serverMiddleware: [
-    "~/api/seo.js"
-  ],
+
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
     // https://go.nuxtjs.dev/tailwindcss
     '@nuxtjs/tailwindcss',
     '@nuxtjs/fontawesome',
     '@nuxtjs/axios',
-    '@nuxtjs/proxy',
   ],
   axios: {
     proxy: true
-  },
-  proxy: {
   },
   fontawesome: {
     icons: {
