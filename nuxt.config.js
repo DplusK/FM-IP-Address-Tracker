@@ -30,9 +30,6 @@ export default {
   generate: {
     dir: 'dist'
   },
-  serverMiddleware: [
-    "~/api/seo.js"
-  ],
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [{
     src: '~plugins/leaflet.js',
@@ -47,10 +44,12 @@ export default {
     '@nuxtjs/tailwindcss',
     '@nuxtjs/fontawesome',
     '@nuxtjs/axios',
+    "@nuxtjs/proxy",
   ],
   axios: {
     proxy: true
   },
+  proxy: ["https://geo.ipify.org/api/v1"],
   fontawesome: {
     icons: {
       solid: [
